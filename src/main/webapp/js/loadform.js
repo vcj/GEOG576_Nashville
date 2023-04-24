@@ -10,7 +10,7 @@ function onSelectReportType(ele){
             select.append($("<option></option>")
                 .attr("value","")
                 .text("Art Type"));
-            selectValues = ['Mural','Sculpture', 'Mosaic','Mobile','Frieze','Other'];
+            selectValues = ['Mural','Sculpture', 'Mosaic','Mobile','Frieze'];
             $.each(selectValues, function(index,value) {
                 select.append($("<option></option>")
                     .attr("value",value)
@@ -42,8 +42,16 @@ function queryReport(event) {
 
     var a = $("#query_report_form").serializeArray();
     a.push({ name: "tab_id", value: "1" });
-    a.push({ name: "longitude", value: place.geometry.location.lng() });
-    a.push({ name: "latitude", value:  place.geometry.location.lat() });
+    try {
+        a.push({ name: "longitude", value: place.geometry.location.lng() });
+    } catch (error) {
+        a.push({ name: "longitude", value: "" });
+    };
+    try {
+        a.push({ name: "latitude", value: place.geometry.location.lat() });
+    } catch (error) {
+        a.push({ name: "latitude", value: "" });
+    };
     a = a.filter(function(item){return item.value != '';});
     $.ajax({
         url: 'HttpServlet',
