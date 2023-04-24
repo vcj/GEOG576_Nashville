@@ -85,8 +85,8 @@ function createReport(event) {
     //a["latitude"] = place.geometry.location.lat();
     a.push({ name: "tab_id", value: "0" });
     //question 4 part 2 adds the latitude and longitude
-    a.push({ name: "longitude", value: place.geometry.location.lng() });
-    a.push({ name: "latitude", value:  place.geometry.location.lat() });
+    //a.push({ name: "longitude", value: place.geometry.location.lng() });
+    //a.push({ name: "latitude", value:  place.geometry.location.lat() });
     a = a.filter(function(item){return item.value != '';});
 
     //console.log(a);
