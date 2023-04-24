@@ -2,7 +2,7 @@
 <%@ page import="org.json.*"%>
 <%@ page import="java.sql.SQLException"%>
 <%@ page import="java.sql.ResultSet"%>
-<%@ page import="org.webproject.servlet.lab_5.DBUtility"%>
+<%@ page import="com.example.nashville.DBUtility"%>
 <%@ page import="java.util.HashMap" %>
 
 <html>

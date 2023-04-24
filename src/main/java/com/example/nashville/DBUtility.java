@@ -1,4 +1,4 @@
-package org.webproject.servlet.lab_5;
+package com.example.nashville;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +8,9 @@ import java.sql.Statement;
 
 public class DBUtility {
     private static final String Driver = "org.postgresql.Driver";
-    private static final String ConnUrl = "jdbc:postgresql://localhost:5432/disastermngt";
-    private static final String Username = "postgres";
-    private static final String Password = "Chadrussel$4";
+    private static final String ConnUrl = "jdbc:postgresql://34.29.216.150:5432/nash";
+    private static final String Username = "user1";
+    private static final String Password = "geog_576";
 
     // This is a constructor
     public DBUtility() {
@@ -22,10 +22,13 @@ public class DBUtility {
         try {
             Class.forName(Driver);
             conn = DriverManager.getConnection(ConnUrl, Username, Password);
+            System.out.println(conn);
             return conn;
         } catch (Exception e) {
+            System.out.println("failed connection");
             e.printStackTrace();
         }
+        System.out.println(conn);
         return conn;
     }
 
@@ -35,12 +38,14 @@ public class DBUtility {
         ResultSet res = null;
         try {
             if (conn != null) {
+                System.out.println("querying db");
                 Statement stmt = conn.createStatement();
                 res = stmt.executeQuery(sql);
                 conn.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("connection failed");
         }
         return res;
     }
@@ -62,6 +67,8 @@ public class DBUtility {
         }
     }
 
+
+
     /**
      * @param args
      * @throws SQLException
@@ -71,12 +78,12 @@ public class DBUtility {
         DBUtility util = new DBUtility();
 
         // 1. create a user
-        util.modifyDB("insert into person (first_name, last_name) values ('test_user_1_fN', 'test_user_1_lN')");
+        util.modifyDB("insert into reviews (fn, ln) values ('test_user_1_fN', 'test_user_1_lN')");
 
         // 2. query the database
-        ResultSet res = util.queryDB("select * from person where first_name = 'test_user_1_fN'");
+        ResultSet res = util.queryDB("select * from pois");
         while (res.next()) {
-            System.out.println(res.getString("last_name"));
+            System.out.println(res.getString("title"));
         }
 
     }

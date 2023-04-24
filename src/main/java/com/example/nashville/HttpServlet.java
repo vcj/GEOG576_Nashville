@@ -1,4 +1,4 @@
-package org.webproject.servlet.lab_5;
+package com.example.nashville;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -151,7 +151,6 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
                 " message) values (" + user_id + "," + report_type + "," + disaster_type
                 + ", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326)" + "," +
                 message + ")";
-        System.out.println("httpservlet calling modifydb sql:" + sql);
         dbutil.modifyDB(sql);
 
         // record report_id
@@ -195,81 +194,66 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
         JSONArray list = new JSONArray();
 
         String disaster_type = request.getParameter("disaster_type");
-        String report_type = request.getParameter("report_type");
+        String site_type = request.getParameter("site_type");
         // resource_or_damage will be null if report_type is null
-        String resource_or_damage = request.getParameter("resource_or_damage");
+        String art_or_war = request.getParameter("art_or_war");
+        String latitude = request.getParameter("latitude");
+        String longitude  = request.getParameter("longitude");
 
         // request report
-        if (report_type == null || report_type.equalsIgnoreCase("request")) {
-            String sql = "select report.id, report_type, resource_type, " +
-                    "disaster_type, first_name, last_name, time_stamp, ST_X(geom) as " +
-                    "longitude, ST_Y(geom) as latitude, message from report, person, " +
-                    "request_report where reporter_id = person.id and report.id = " +
-                    "report_id";
-            queryReportHelper(sql,list,"request",disaster_type,resource_or_damage);
+        if (site_type == null) {
+            String sql = "select * from pois where id is not null";
+            queryReportHelper(sql,list,"art",disaster_type,art_or_war, latitude, longitude);
+        }
+        // request report
+        if (site_type == null || site_type.equalsIgnoreCase("art")) {
+            String sql = "select * from pois where site_type = 'art_in_public_places'";
+            queryReportHelper(sql,list,"art",disaster_type,art_or_war,latitude, longitude);
         }
 
         // donation report
-        if (report_type == null || report_type.equalsIgnoreCase("donation")) {
-            String sql = "select report.id, report_type, resource_type, " +
-                    "disaster_type, first_name, last_name, time_stamp, ST_X(geom) as " +
-                    "longitude, ST_Y(geom) as latitude, message from report, person, " +
-                    "donation_report where reporter_id = person.id and report.id = " +
-                    "report_id";
-            queryReportHelper(sql,list,"donation",disaster_type,resource_or_damage);
-        }
-
-        // damage report
-        if (report_type == null || report_type.equalsIgnoreCase("damage")) {
-            String sql = "select report.id, report_type, damage_type, " +
-                    "disaster_type, first_name, last_name, time_stamp, ST_X(geom) as " +
-                    "longitude, ST_Y(geom) as latitude, message from report, person, " +
-                    "damage_report where reporter_id = person.id and report.id = " +
-                    "report_id";
-            queryReportHelper(sql,list,"damage",disaster_type,resource_or_damage);
+        if (site_type == null || site_type.equalsIgnoreCase("historical")) {
+            String sql = "select * from pois where site_type = 'historical_marker'";
+            queryReportHelper(sql,list,"historical",disaster_type,art_or_war, latitude, longitude);
         }
 
         response.getWriter().write(list.toString());
     }
 
-    private void queryReportHelper(String sql, JSONArray list, String report_type,
-                                   String disaster_type, String resource_or_damage) throws SQLException {
+    private void queryReportHelper(String sql, JSONArray list, String site_type,
+                                   String disaster_type, String art_or_war, String latitude, String longitude) throws SQLException {
         DBUtility dbutil = new DBUtility();
-        if (disaster_type != null) {
-            sql += " and disaster_type = '" + disaster_type + "'";
-        }
-        if (resource_or_damage != null) {
-            if (report_type.equalsIgnoreCase("damage")) {
-                sql += " and damage_type = '" + resource_or_damage + "'";
+        if (art_or_war != null) {
+            if (site_type.equalsIgnoreCase("historical")) {
+                if (art_or_war.equalsIgnoreCase("true")) {
+                    sql += " and civil_war = 'X'";}
             } else {
-                sql += " and resource_type = '" + resource_or_damage + "'";
+                sql += " and art_type = '" + art_or_war + "'";
             }
         }
+        if (longitude != null) {
+            sql += " and ST_DWithin(st_setsrid(st_makepoint(" + longitude + "," + latitude +"),4326), st_setsrid(st_makepoint("
+        + "longitude, latitude),4326), 804.672, true)";
+        }
+        System.out.println(sql);
         ResultSet res = dbutil.queryDB(sql);
         while (res.next()) {
             // add to response
             HashMap<String, String> m = new HashMap<String,String>();
-            m.put("report_id", res.getString("id"));
-            m.put("report_type", res.getString("report_type"));
-            if (report_type.equalsIgnoreCase("donation") ||
-                    report_type.equalsIgnoreCase("request")) {
-                m.put("resource_type", res.getString("resource_type"));
-            }
-            else if (report_type.equalsIgnoreCase("damage")) {
-                m.put("damage_type", res.getString("damage_type"));
-            }
-            m.put("disaster", res.getString("disaster_type"));
-            m.put("first_name", res.getString("first_name"));
-            m.put("last_name", res.getString("last_name"));
-            m.put("time_stamp", res.getString("time_stamp"));
+            m.put("id", res.getString("id"));
+            m.put("site_type", res.getString("site_type"));
+            m.put("title", res.getString("title"));
+            m.put("artist", res.getString("artist"));
+            m.put("description", res.getString("description"));
+            m.put("year", res.getString("year"));
             m.put("longitude", res.getString("longitude"));
             m.put("latitude", res.getString("latitude"));
-            m.put("message", res.getString("message"));
+            m.put("art_type", res.getString("art_type"));
+            m.put("location", res.getString("location"));
             list.put(m);
         }
     }
 
     public void main() throws JSONException {
     }
-
 }

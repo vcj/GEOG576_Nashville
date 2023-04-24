@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Nashville</title>
+    <title>Web Project</title>
 
     <!-- Custom styles -->
     <link rel="stylesheet" href="css/style.css">
@@ -16,9 +16,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <!-- Google Map JS Libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=REMOVED-API-KEY&libraries=geometry,places">
+    <! GOogle Map JS Libraries -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjq0JgOGhFYBNNAOjomRWhkD5vd7A-xts&libraries=geometry,places">
     </script>
+
 </head>
 
 <body>
@@ -32,54 +33,86 @@
 
             <!-- Tab Navis-->
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#create_report" data-toggle="tab">Find a Site!</a></li>
-                <li><a href="#query_report" data-toggle="tab">Leave a Review!</a></li>
+                <li class="active"><a href="#query_site" data-toggle="tab">Find a Site!</a></li>
+                <li><a href="#create_review" data-toggle="tab">Review a Site</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content ">
-                <!-- Find a Site Tab Panel -->
-                <div class="tab-pane active" id="create_report">
+                <!-- Create Report Tab Panel -->
+                <div class="tab-pane" id="create_review">
                     <form id = "create_report_form">
-                        <div><label>Site Name:</label><input placeholder="Site Name" name="fN"></div>
-                        <div><label>Site Type:</label>
-                            <select name="site_type">
-                                <option value="">Choose a site type</option>
-                                <option value="SiteType1">Site Type 1</option>
-                                <option value="SiteType2">Site Type 2</option>
-                                <option value="SiteType3">Site Type 3</option>
-                                <option value="SiteType4">Site Type 4</option>
+                        <div><label>First Name:&nbsp</label><input placeholder="Your first name" name="fN"></div>
+                        <div><label>Last Name:&nbsp</label><input placeholder="Your last name" name="lN"></div>
+                        <div>
+                            <label><input type="radio" name="is_male" value="t">&nbspMale</label>
+                            <label><input type="radio" name="is_male" value="f">&nbspFemale</label>
+                        </div>
+                        <div><label>Age:&nbsp</label><input placeholder="Your age" name="age"></div>
+                        <div><label>Blood Type:</label>
+                            <select name="blood_type">
+                                <option value="">Choose your blood type</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="O">O</option>
+                                <option value="AB">AB</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
-                        <div><label>Nearby Address:</label>
-                            <input id="autocomplete" placeholder="Address" >
+                        <div><label>Tel:&nbsp</label><input placeholder="Your telephone number" name="tel"></div>
+                        <div><label>Email:&nbsp</label><input placeholder="Your email address" name="email"></div>
+                        <div><label>Contact's First Name:&nbsp</label><input placeholder="Contact's first name" name="contact_fN"></div>
+                        <div><label>Contact's Last Name:&nbsp</label><input placeholder="Contact's last name" name="contact_lN"></div>
+                        <div><label>Contact's Tel:&nbsp</label><input placeholder="Contact's telephone number" name="contact_tel"></div>
+                        <div><label>Contact's Email:&nbsp</label><input placeholder="Contact's email address" name="contact_email"></div>
+                        <div><label>Report Type:</label>
+                            <select onchange="onSelectReportType(this)" name="report_type">
+                                <option value="">Choose the report type</option>
+                                <option value="donation">Donation</option>
+                                <option value="request">Request</option>
+                                <option value="damage">Damage Report</option>
+                            </select>
                         </div>
+                        <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
+                            <select class="additional_msg_select" name="additional_message"></select>
+                        </div>
+                        <div><label>Disaster Type:</label>
+                            <select name="disaster_type">
+                                <option value="">Choose the disaster type</option>
+                                <option value="flood">flood</option>
+                                <option value="wildfire">wildfire</option>
+                                <option value="earthquake">earthquake</option>
+                                <option value="tornado">tornado</option>
+                                <option value="hurricane">hurricane</option>
+                                <option value="other">other</option>
+                            </select>
+                        </div>
+                        <div><label>Comment:&nbsp</label><input placeholder="Additional message" name="message"></div>
                         <button type="submit" class="btn btn-default" id="report_submit_btn">
                             <span class="glyphicon glyphicon-star"></span> Submit
                         </button>
                     </form>
                 </div>
 
-                <!-- Leave a Review Tab Panel -->
-                <div class="tab-pane" id="query_report">
-                    <form id = "review_report_form">
-                        <div><label>Site Name:</label><input placeholder="Site Name" name="fN"></div>
-                        <div><label>Rating:</label>
-                            <select name="rating_type">
-                                <option value="">Choose a rating</option>
-                                <option value="onestar">One star</option>
-                                <option value="twostars">Two stars</option>
-                                <option value="threestars">Three stars</option>
-                                <option value="fourstars">Four stars</option>
-                                <option value="fivestars">Five stars!</option>
+                <!-- Query Report Tab Panel -->
+                <div class="tab-pane active" id="query_site">
+                    <form id = "query_report_form">
+                        <div><label>Site Type:</label>
+                            <select onchange="onSelectReportType(this)" name="site_type">
+                                <option value="">Choose the site type</option>
+                                <option value="art">Public Art</option>
+                                <option value="historical">Historical Site</option>
                             </select>
-<%--                            this will be for the comment - not sure how to do that part! --%>
-                        <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
-                            <select class="additional_msg_select" name="resource_or_damage"></select>
                         </div>
+                        <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
+                            <select class="additional_msg_select" name="art_or_war"></select>
+                        </div>
+                        <div><label>Search Near Address:</label>
+                            <input id="autocomplete" placeholder="Address" >
+                        </div>
+                        <div><label>Site Name:&nbsp</label><input placeholder="Optional" name="title"></div>
                         <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-star"></span> Submit Review
+                            <span class="glyphicon glyphicon-star"></span> Submit the query
                         </button>
                     </form>
                 </div>

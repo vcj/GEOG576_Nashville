@@ -4,29 +4,26 @@ function onSelectReportType(ele){
     var select = $(form).find(".additional_msg_select");
 
     switch (ele.value) {
-        case "donation":
-        case "request":
-            label.text("Resource Type:");
+        case "art":
+            label.text("Art Type");
             select.find('option').remove();
             select.append($("<option></option>")
                 .attr("value","")
-                .text("Choose the resource type"));
-            selectValues = ['water', 'food', 'money', 'medicine', 'cloth',
-                'rescue/volunteer'];
+                .text("Art Type"));
+            selectValues = ['Mural','Sculpture', 'Mosaic','Mobile','Frieze','Other'];
             $.each(selectValues, function(index,value) {
                 select.append($("<option></option>")
                     .attr("value",value)
                     .text(value));
             });
             break;
-        case "damage":
-            label.text("Damage Type:");
+        case "historical":
+            label.text("Civil War");
             select.find('option').remove();
             select.append($("<option></option>")
                 .attr("value","")
-                .text("Choose the damage type"));
-            selectValues = ['pollution', 'building damage', 'road damage', 'casualty',
-                'other'];
+                .text("Civil War Site?"));
+            selectValues = ['true','false'];
             $.each(selectValues, function(index,value) {
                 select.append($("<option></option>")
                     .attr("value",value)
@@ -45,6 +42,8 @@ function queryReport(event) {
 
     var a = $("#query_report_form").serializeArray();
     a.push({ name: "tab_id", value: "1" });
+    a.push({ name: "longitude", value: place.geometry.location.lng() });
+    a.push({ name: "latitude", value:  place.geometry.location.lat() });
     a = a.filter(function(item){return item.value != '';});
     $.ajax({
         url: 'HttpServlet',
@@ -58,56 +57,59 @@ function queryReport(event) {
         }
     });
 }
-// Q4-1 & 4-2 Create report, set tab-id 0 and lat/long
+
+$("#query_report_form").on("submit",queryReport);
+
+
+
+///question 4 working
+function resetForm(event) {
+    document.getElementById("create_report_form").reset();
+};
+
+
+///question 4 part 1 runs create report
 function createReport(event) {
     event.preventDefault(); // stop form from submitting normally
 
-    var a = $("#create_report_form").serializeArray()
-    var latitude = place.geometry.location.lat()
-    var longitude = place.geometry.location.lng()
-    console.log("loadform.js createReport, testing lat and long" + latitude + " " + longitude);
-    a.push({ name: "tab_id", value: "0"});
-    a.push({ name: "longitude", value: longitude});
-    a.push({ name: "latitude", value: latitude});
+    var a = $("#create_report_form").serializeArray();
+    //a["longitude"] = place.geometry.location.lng();
+    //a["latitude"] = place.geometry.location.lat();
+    a.push({ name: "tab_id", value: "0" });
+    //question 4 part 2 adds the latitude and longitude
+    a.push({ name: "longitude", value: place.geometry.location.lng() });
+    a.push({ name: "latitude", value:  place.geometry.location.lat() });
     a = a.filter(function(item){return item.value != '';});
+
+    //console.log(a);
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
         data: a,
-        // Q 4-3 alert box for successful submission
         success: function(reports) {
-            mapInitialization(reports);
-            window.alert("The report is successfully submitted!");
-            console.log("loadmap.js successful report submission...will it reset???");
-            // Q4-4 reset form
-            document.getElementById("create_report_form").reset();
-            console.log("loadmap.js if you're seeing this, the form reset!");
-            // Q4-5 another Ajax query to query all reports in the server and call mapInitialization function in the success callback
-            // with the new marker for the report just submitted
             $.ajax({
                 url: 'HttpServlet',
                 type: 'POST',
                 data: { "tab_id": "1"},
                 success: function(reports) {
+                    //question 4 part 3 adds the alert box
+                    alert("The report was successfully submitted!");
+                    //question 4 part 5 re-runs map initialization
                     mapInitialization(reports);
-                    // Extra Credit - zoom map to new marker after form submission
-                    onPlaceChanged();
-                    console.log("loadform.js, reload map with new marker. if you are seeing this message, everything apparently worked!!!")
                 },
                 error: function(xhr, status, error) {
-                    alert("An AJAX error occurred: " + status + "\nError: " + error);
+                    alert("An AJAX error occured: " + status + "\nError: " + error);
                 }
             });
         },
         error: function(xhr, status, error) {
-            window.alert("Status: " + status + "\nError: " + error);
+            alert("Status: " + status + "\nError: " + error);
         }
     });
+    //question 4 part 4 resets the form, i used a function called resetForm to do this
+    resetForm();
+
 }
 
-$("#query_report_form").on("submit",queryReport);
 
 $("#create_report_form").on("submit",createReport);
-
-
-
