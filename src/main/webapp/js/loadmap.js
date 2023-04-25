@@ -44,7 +44,7 @@ function mapInitialization(reports) {
             var valueLon = t['lng'];
             document.getElementById("lon").value=valueLon;
         }
-        console.log(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+        //console.log(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
 
         setLat();
     });
@@ -77,11 +77,20 @@ function mapInitialization(reports) {
             customInfo: contentStr,
         });
 
+        var siteName =  e['title'];
+
         // Add a Click Listener to the marker
         google.maps.event.addListener(marker, 'click', function() {
             // use 'customInfo' to customize infoWindow
             infowindow.setContent(marker['customInfo']);
             infowindow.open(map, marker); // Open InfoWindow
+
+            function setSite(){
+                document.getElementById("sN").value=siteName;
+            }
+            //console.log(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+
+            setSite();
         });
 
     });

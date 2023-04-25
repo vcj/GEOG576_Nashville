@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <! GOogle Map JS Libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=replaceMe&libraries=geometry,places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=REPLACEME&libraries=geometry,places">
     </script>
 
 </head>
@@ -42,7 +42,7 @@
                 <!-- Create Report Tab Panel -->
                 <div class="tab-pane" id="create_review">
                     <form id = "create_report_form">
-                        <div><label>Site Name:&nbsp</label><input placeholder="Site name" name="sN"></div>
+                        <div><label>Site Name:&nbsp</label><input placeholder="Site name" name="sN" id="sN"></div>
                         <div><label>Stars:</label>
                             <select name="stars">
                                 <option value="">Rate the site</option>
