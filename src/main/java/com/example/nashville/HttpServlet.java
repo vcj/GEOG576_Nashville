@@ -81,9 +81,9 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
         String stars = request.getParameter("stars");
         String comment = request.getParameter("message");
         String age = request.getParameter("age");
-        sql = "insert into reviews (fN, lN, site_name, comment, age, stars_text) " +
+        sql = "insert into reviews (fN, lN, site_name, comment, age, stars_text, review_time) " +
                     "values ('" + first_name + "','" + last_name + "','" + site_name + "','"
-                    + comment + "'," + age +",'" + stars +"')";
+                    + comment + "'," + age +",'" + stars +"', CURRENT_TIMESTAMP)";
         System.out.println(sql);
         dbutil.modifyDB(sql);
 
@@ -107,7 +107,7 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
 
         // request report
         if (site_type == null) {
-            String sql = "select * from pois where id is not null";
+            String sql = "select * from pois where latitude is not null";
             queryReportHelper(sql,list,"art",disaster_type,art_or_war, latitude, longitude, title, lon2, lat2, coords);
         }
         // request report
@@ -147,6 +147,8 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
         if (title != null) {
             sql += " and title LIKE '%" + title + "%'";
         }
+        // add join to reviews
+        sql = "SELECT * from ("+ sql+ ") pois2 LEFT join site_reviews on pois2.title = site_reviews.site_name";
         System.out.println(sql);
         ResultSet res = dbutil.queryDB(sql);
         while (res.next()) {
@@ -162,6 +164,9 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
             m.put("latitude", res.getString("latitude"));
             m.put("art_type", res.getString("art_type"));
             m.put("location", res.getString("location"));
+            m.put("total_reviews", res.getString("total_reviews"));
+            m.put("average_review", res.getString("average_review"));
+            m.put("most_recent_comment", res.getString("most_recent_comment"));
             list.put(m);
         }
     }

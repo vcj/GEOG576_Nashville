@@ -69,6 +69,8 @@ function mapInitialization(reports) {
             '</p>';
         contentStr += '<p><b>' + 'Type' + ':</b>&nbsp' + e['site_type'] +
             '</p>';
+        contentStr += '<p><b>' + 'Average Review' + ':</b>&nbsp' + e['average_review'] +
+            '</p>';
 
         // Create the marker
         var marker = new google.maps.Marker({ // Set the marker
