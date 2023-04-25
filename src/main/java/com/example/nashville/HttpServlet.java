@@ -100,23 +100,26 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
         String art_or_war = request.getParameter("art_or_war");
         String latitude = request.getParameter("latitude");
         String longitude  = request.getParameter("longitude");
+        String lon2  = request.getParameter("lon2");
+        String lat2  = request.getParameter("lat2");
         String title  = request.getParameter("title");
+        String coords  = request.getParameter("coords");
 
         // request report
         if (site_type == null) {
             String sql = "select * from pois where id is not null";
-            queryReportHelper(sql,list,"art",disaster_type,art_or_war, latitude, longitude, title);
+            queryReportHelper(sql,list,"art",disaster_type,art_or_war, latitude, longitude, title, lon2, lat2, coords);
         }
         // request report
         if (site_type == null || site_type.equalsIgnoreCase("art")) {
             String sql = "select * from pois where site_type = 'art_in_public_places'";
-            queryReportHelper(sql,list,"art",disaster_type,art_or_war,latitude, longitude , title);
+            queryReportHelper(sql,list,"art",disaster_type,art_or_war,latitude, longitude , title, lon2, lat2, coords);
         }
 
         // donation report
         if (site_type == null || site_type.equalsIgnoreCase("historical")) {
             String sql = "select * from pois where site_type = 'historical_marker'";
-            queryReportHelper(sql,list,"historical",disaster_type,art_or_war, latitude, longitude, title);
+            queryReportHelper(sql,list,"historical",disaster_type,art_or_war, latitude, longitude, title, lon2, lat2, coords);
         }
 
         response.getWriter().write(list.toString());
@@ -124,7 +127,7 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
 
     private void queryReportHelper(String sql, JSONArray list, String site_type,
                                    String disaster_type, String art_or_war, String latitude, String longitude,
-                                    String title) throws SQLException {
+                                    String title, String lon2, String lat2, String coords) throws SQLException {
         DBUtility dbutil = new DBUtility();
         if (art_or_war != null) {
             if (site_type.equalsIgnoreCase("historical")) {
@@ -137,6 +140,9 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
         if (longitude != null) {
             sql += " and ST_DWithin(st_setsrid(st_makepoint(" + longitude + "," + latitude +"),4326), st_setsrid(st_makepoint("
         + "longitude, latitude),4326), 804.672, true)";
+        } else if ( coords != null ) {
+            sql += " and ST_DWithin(st_setsrid(st_makepoint(" + lon2 + "," + lat2 +"),4326), st_setsrid(st_makepoint("
+                    + "longitude, latitude),4326), 804.672, true)";
         }
         if (title != null) {
             sql += " and title LIKE '%" + title + "%'";

@@ -1,5 +1,6 @@
 html,body{
     background-color: #f5f5f5;
+    font-family: Gill Sans MT, serif;
 }
 
 body {
@@ -8,18 +9,26 @@ body {
 
 .container-fluid, .row{
     background-color: #f5f5f5;
+    font-family: Gill Sans MT, serif;
 }
 .sidebar {
     padding: 12px;
     background-color: #f5f5f5;
+    font-family: Gill Sans MT, serif;
 }
 
 form {
     padding-top: 12px;
+    font-family: Gill Sans MT, serif;
 }
 
 #map-canvas {
     height:100%;
     position: absolute;
     right:0;
+}
+
+#navbar-brand {
+    font-family: Gill Sans MT, serif;
+
 }

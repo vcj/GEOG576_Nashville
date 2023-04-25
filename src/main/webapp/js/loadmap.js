@@ -14,7 +14,7 @@ function showAllReports() {
         type: 'POST',
         data: { "tab_id": "1"},
         success: function(reports) {
-            console.log("loadmap.js map initialization, print reports" + JSON.stringify(reports));
+            //console.log("loadmap.js map initialization, print reports" + JSON.stringify(reports));
             mapInitialization(reports);
         },
         error: function(xhr, status, error) {
@@ -28,8 +28,27 @@ function mapInitialization(reports) {
         mapTypeId : google.maps.MapTypeId.ROADMAP, // Set the type of Map
     };
 
+
+
     // Render the map within the empty div
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    // Configure the click listener.
+    map.addListener("click", (mapsMouseEvent) => {
+        // Close the current InfoWindow.
+        // Create a new InfoWindow.
+        function setLat(){
+            var t = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+            var valueLat = t['lat'];
+            document.getElementById("lat").value=valueLat;
+            var valueLon = t['lng'];
+            document.getElementById("lon").value=valueLon;
+        }
+        console.log(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+
+        setLat();
+    });
+
 
     var bounds = new google.maps.LatLngBounds ();
 
@@ -70,6 +89,8 @@ function mapInitialization(reports) {
     map.fitBounds (bounds);
 
 }
+
+
 
 function initAutocomplete() {
     // Create the autocomplete object

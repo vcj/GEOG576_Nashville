@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <! GOogle Map JS Libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=REPLACE_API_KEY&libraries=geometry,places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=replaceMe&libraries=geometry,places">
     </script>
 
 </head>
@@ -80,6 +80,11 @@
                             <input id="autocomplete" placeholder="Address" >
                         </div>
                         <div><label>Site Name:&nbsp</label><input placeholder="Optional" name="title"></div>
+                        <div>
+                            <label><input type="radio" name="coords" value="t">&nbspSearch Near Clicked Coordinates</label>
+                        </div>
+                        <div><label>Latitude&nbsp</label><input placeholder="Optional" name="lat2" id="lat"></div>
+                        <div><label>Longitude&nbsp</label><input placeholder="Optional" name="lon2" id="lon"></div>
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-star"></span> Submit the query
                         </button>
