@@ -52,6 +52,18 @@ function mapInitialization(reports) {
 
     var bounds = new google.maps.LatLngBounds ();
 
+    //create the icon constructors
+    var icons = {
+        historical_marker: {
+            url: 'img/historical.png',
+            scaledSize: new google.maps.Size(20, 20)
+        },
+        art_in_public_places: {
+            url: 'img/art.png',
+            scaledSize: new google.maps.Size(30, 30)
+        }
+    };
+
     $.each(reports, function(i, e) {
         var long = Number(e['longitude']);
         var lat = Number(e['latitude']);
@@ -76,6 +88,7 @@ function mapInitialization(reports) {
         var marker = new google.maps.Marker({ // Set the marker
             position : latlng, // Position marker to coordinates
             map : map, // assign the market to our map variable
+            icon: icons[e['site_type']], //add custom icons based on site type
             customInfo: contentStr,
         });
 
