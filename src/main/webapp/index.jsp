@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <! GOogle Map JS Libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=ReplaceME&libraries=geometry,places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHVMxYbV8d-5-8pswM4UVoO5aNCnC45xA&libraries=geometry,places">
     </script>
 
 </head>
