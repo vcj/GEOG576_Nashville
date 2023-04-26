@@ -145,7 +145,7 @@ public class HttpServlet extends jakarta.servlet.http.HttpServlet {
                     + "longitude, latitude),4326), 804.672, true)";
         }
         if (title != null) {
-            sql += " and title LIKE '%" + title + "%'";
+            sql += " and lower(title) LIKE '%" + title.toLowerCase() + "%'";
         }
         // add join to reviews
         sql = "SELECT * from ("+ sql+ ") pois2 LEFT join site_reviews on pois2.title = site_reviews.site_name";

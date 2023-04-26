@@ -69,7 +69,7 @@ function mapInitialization(reports) {
             '</p>';
         contentStr += '<p><b>' + 'Type' + ':</b>&nbsp' + e['site_type'] +
             '</p>';
-        contentStr += '<p><b>' + 'Average Review' + ':</b>&nbsp' + e['average_review'] +
+        contentStr += '<p><b>' + 'Average Review' + ':</b>&nbsp' + e['average_review'] + ':</b>&nbsp' + e['most_recent_comment'] +
             '</p>';
 
         // Create the marker
