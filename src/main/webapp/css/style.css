@@ -1,6 +1,6 @@
 html,body{
     background-color: #f5f5f5;
-    font-family: Gill Sans MT, serif;
+    font-family: Ink Free, serif;
 }
 
 body {
@@ -9,17 +9,17 @@ body {
 
 .container-fluid, .row{
     background-color: #f5f5f5;
-    font-family: Gill Sans MT, serif;
+    font-family: Ink Free, serif;
 }
 .sidebar {
     padding: 12px;
     background-color: #f5f5f5;
-    font-family: Gill Sans MT, serif;
+    font-family: Ink Free, serif;
 }
 
 form {
     padding-top: 12px;
-    font-family: Gill Sans MT, serif;
+    font-family: Ink Free, serif;
 }
 
 #map-canvas {
@@ -29,6 +29,6 @@ form {
 }
 
 #navbar-brand {
-    font-family: Gill Sans MT, serif;
+    font-family: Ink Free, serif;
 
 }
