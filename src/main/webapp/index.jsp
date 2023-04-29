@@ -58,7 +58,7 @@
                         <div><label>Last Name:&nbsp</label><input placeholder="Your last name" name="lN"></div>
                         <div><label>Age:&nbsp</label><input placeholder="Your age" name="age"></div>
                         <button type="submit" class="btn btn-default" id="report_submit_btn">
-                            <span class="glyphicon glyphicon-star"></span> Submit
+                            Submit the review <span class="glyphicon glyphicon-pencil"></span>
                         </button>
                     </form>
                 </div>
@@ -86,7 +86,7 @@
                         <div><label>Latitude&nbsp</label><input placeholder="Optional" name="lat2" id="lat"></div>
                         <div><label>Longitude&nbsp</label><input placeholder="Optional" name="lon2" id="lon"></div>
                         <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-star"></span> Submit the query
+                           Submit the query <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </form>
                 </div>
