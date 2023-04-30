@@ -58,12 +58,21 @@ function mapInitialization(reports) {
     //create the icon constructors
     var icons = {
         historical_marker: {
-            url: 'img/historical-brown.png',
-            scaledSize: new google.maps.Size(30, 23)
+// <<<<<<< Updated upstream
+//             url: 'img/historical-brown.png',
+//             scaledSize: new google.maps.Size(30, 23)
+//         },
+//         art_in_public_places: {
+//             url: 'img/art-pink.png',
+//             scaledSize: new google.maps.Size(45, 45)
+// =======
+            url: 'img/brown_circle.png',
+            scaledSize: new google.maps.Size(20, 20)
         },
         art_in_public_places: {
-            url: 'img/art-pink.png',
-            scaledSize: new google.maps.Size(45, 45)
+            url: 'img/blue_star.png',
+            scaledSize: new google.maps.Size(25, 25)
+// >>>>>>> Stashed changes
         }
     };
 
