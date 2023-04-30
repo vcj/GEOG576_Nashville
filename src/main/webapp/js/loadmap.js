@@ -76,6 +76,9 @@ function mapInitialization(reports) {
         }
     };
 
+
+
+
     $.each(reports, function(i, e) {
         var long = Number(e['longitude']);
         var lat = Number(e['latitude']);
@@ -91,8 +94,14 @@ function mapInitialization(reports) {
             '</p>';
         contentStr += '<p><b>' + 'Address' + ':</b>&nbsp' + e['location'] +
             '</p>';
-        contentStr += '<p><b>' + 'Type' + ':</b>&nbsp' + e['site_type'] +
-            '</p>';
+        //else if for report types
+        if (e['site_type'] == 'art_in_public_places') {
+            contentStr += '<p><b>' + 'Type' + ':</b>&nbsp' + 'Public Art' +
+                '</p>'
+        } else if (e['site_type'] == 'historical_marker'){
+            contentStr += '<p><b>' + 'Type' + ':</b>&nbsp' + 'Historical Marker' +
+                '</p>'
+        };
         contentStr += '<p><b>' + 'Average Review' + ':</b>&nbsp' + e['average_review'] + ':</b>&nbsp out of ' + e['total_reviews'] +
             ' reviews.</p>';
         contentStr += '<p><b>' + 'Most Recent Comment' + ':</b>&nbsp'+ e['most_recent_comment'] +
