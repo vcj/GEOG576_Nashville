@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/style.css">
 
     <! GOogle Map JS Libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=replaceMe&libraries=geometry,places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=ReplaceMEA&libraries=geometry,places">
     </script>
 
 </head>

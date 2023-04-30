@@ -52,7 +52,8 @@ function mapInitialization(reports) {
     });
 
 
-    var bounds = new google.maps.LatLngBounds ();
+    var bounds = new google.maps.LatLngBounds (
+    );
 
     //create the icon constructors
     var icons = {
@@ -113,8 +114,17 @@ function mapInitialization(reports) {
         });
 
     });
+    console.log(bounds.Ua.hi);
+    if (bounds.Ua.hi != -1) {
+        map.fitBounds (bounds);
+    } else {
+        var latlng = new google.maps.LatLng(36.11502267719292, -86.83868336541748);
+        bounds.extend(latlng);
+        var latlng2 = new google.maps.LatLng(36.219236356179856, -86.70581745965576);
+        bounds.extend(latlng2);
+        map.fitBounds (bounds);
 
-    map.fitBounds (bounds);
+    }
 
 }
 
