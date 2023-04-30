@@ -28,7 +28,8 @@ form {
     right:0;
 }
 
-#navbar {
+.navbar-text {
     font-family: Ink Free, serif;
+    font-weight: bold;
 
 }

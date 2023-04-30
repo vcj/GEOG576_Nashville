@@ -5,9 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Project</title>
 
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="css/style.css">
-
     <!-- jQuery -->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -16,15 +13,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/style.css">
+
     <! GOogle Map JS Libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=REPLACEME&libraries=geometry,places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=replaceMe&libraries=geometry,places">
     </script>
 
 </head>
 
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <a class="navbar-brand">Explore Nashville by Foot</a>
+    <a class="navbar-brand"><b>Explore Nashville's Cultural Heritage: Find Nearby Public Art and Historical Sites</b></a>
 </nav>
 
 <div class="container-fluid">
