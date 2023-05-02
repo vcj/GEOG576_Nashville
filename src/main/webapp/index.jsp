@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/style.css">
 
     <! GOogle Map JS Libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=ReplaceMEA&libraries=geometry,places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=REPLACEME&libraries=geometry,places">
     </script>
 
 </head>
@@ -61,6 +61,8 @@
                             Submit the review <span class="glyphicon glyphicon-pencil"></span>
                         </button>
                     </form>
+
+
                 </div>
 
                 <!-- Query Report Tab Panel -->
@@ -91,6 +93,17 @@
                     </form>
                 </div>
             </div>
+
+            <!-- legend -->
+            <div class="legend">
+                <img src="img/legend.png"
+                     width="138"
+                     height="90">
+            </div>
+
+            <!-- data source at bottom of sidebar content -->
+            <div class="source">Data Source:
+                Nashville Open Data Portal (data.nashville.gov)</div>
         </div>
 
         <div id="map-canvas" class="col-xs-9"></div>
